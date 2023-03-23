@@ -1,0 +1,45 @@
+body {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1em;
+  height: 600px;
+  width: 400px;
+  border: solid 1px black;
+}
+
+.display {
+  border: solid 1px red;
+  flex: 1;
+  padding: 0 1em;
+  margin-bottom: 1em;
+  position: relative;
+}
+
+.output {
+  padding: inherit;
+  position: absolute;
+  font-size: 6em;
+  bottom: 0;
+  right: 0;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+button {
+  min-width: 100px;
+  min-height: 75px;
+  flex: 1;
+}
