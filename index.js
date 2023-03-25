@@ -38,6 +38,15 @@ const calculation = {
   }
 };
 
+
+function getResult() { // retrieves and shows calculated result
+  let result = calculation.operate();
+  displayedValue.textContent = result;
+  calculation.firstNum = result;
+  calculation.secondNum = null;
+}
+
+
 const displayedValue = document.querySelector('.display .value');
 const numberBtns = document.querySelectorAll('.number');
 const operatorBtns = document.querySelectorAll('.operator');
@@ -65,12 +74,7 @@ operatorBtns.forEach(operator => {
       } else if (calculation.firstNum || calculation.firstNum === 0) { // if already firstNum, get secondNum instead and calculate the result
         calculation.secondNum = Number(currentValue);
         currentValue = '';
-        // get result;
-        let result = calculation.operate();
-        displayedValue.textContent = result;
-        calculation.firstNum = result;
-        calculation.secondNum = null;
-
+        getResult();
         calculation.operator = operators[e.target.id];
         displayedValue.textContent += operators[e.target.id];
       }
