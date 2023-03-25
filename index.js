@@ -33,7 +33,8 @@ const calculation = {
       case '*':
         return operations.multiply(this.firstNum, this.secondNum);
       case '/':
-        return operations.divide(this.firstNum, this.secondNum);
+        let result = operations.divide(this.firstNum, this.secondNum);
+        return result === Infinity || result === -Infinity ? 'nope' : result; // can't divide by zero
     }
   }
 };
@@ -42,14 +43,22 @@ const calculation = {
 function getResult() { // retrieves and shows calculated result
   let result = calculation.operate();
   displayedValue.textContent = result;
-  calculation.firstNum = result;
+  calculation.firstNum = null;
   calculation.secondNum = null;
+  return result;
+}
+
+
+function getOperator(e) {
+  calculation.operator = operators[e.target.id];
+  displayedValue.textContent += operators[e.target.id];
 }
 
 
 const displayedValue = document.querySelector('.display .value');
 const numberBtns = document.querySelectorAll('.number');
 const operatorBtns = document.querySelectorAll('.operator');
+const equalBtn = document.querySelector('.equal');
 
 // Input numbers
 let currentValue = '';
@@ -63,22 +72,33 @@ numberBtns.forEach(number => {
 // Input operators
 operatorBtns.forEach(operator => {
   operator.addEventListener('click', (e) => {
+    // Choose an operator
     if (currentValue) {
-      
       // get firstNum / secondNum, and operator;
       if (!calculation.firstNum && calculation.firstNum !== 0) {
         calculation.firstNum = Number(currentValue);
         currentValue = '';
-        calculation.operator = operators[e.target.id];
-        displayedValue.textContent += operators[e.target.id];
-      } else if (calculation.firstNum || calculation.firstNum === 0) { // if already firstNum, get secondNum instead and calculate the result
+        getOperator(e);      
+      } else if ((calculation.firstNum || calculation.firstNum === 0)) {
         calculation.secondNum = Number(currentValue);
         currentValue = '';
-        getResult();
-        calculation.operator = operators[e.target.id];
-        displayedValue.textContent += operators[e.target.id];
+        let result = getResult();
+        calculation.firstNum = Number(result);
+        getOperator(e);
       }
+    // Choose another operator if already have chosen one
+    } else if (!currentValue) {
+      displayedValue.textContent = displayedValue.textContent.slice(0, -1);
+      getOperator(e);
     }
   });
 });
 
+equalBtn.addEventListener('click', (e) => {
+  if ((calculation.firstNum || calculation.firstNum === 0) && currentValue && calculation.operator) {
+    calculation.secondNum = Number(currentValue);
+    let result = getResult();
+    currentValue = result;
+    calculation.operator = null;
+  }
+});
