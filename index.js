@@ -11,7 +11,7 @@ const operations = {
   divide(a, b) {
     return a / b;
   }
-}
+};
 
 const calculation = {
   firstNum: null,
@@ -29,4 +29,11 @@ const calculation = {
         return operations.divide(this.firstNum, this.secondNum);
     }
   }
-}
+};
+
+const operators = {
+  add: '+',
+  subtract: '-',
+  multiply: '*',
+  divide: '/'
+};
