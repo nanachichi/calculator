@@ -55,7 +55,26 @@ numberBtns.forEach(number => {
 operatorBtns.forEach(operator => {
   operator.addEventListener('click', (e) => {
     if (currentValue) {
-      displayedValue.textContent += operators[e.target.id];
+      
+      // get firstNum / secondNum, and operator;
+      if (!calculation.firstNum && calculation.firstNum !== 0) {
+        calculation.firstNum = Number(currentValue);
+        currentValue = '';
+        calculation.operator = operators[e.target.id];
+        displayedValue.textContent += operators[e.target.id];
+      } else if (calculation.firstNum || calculation.firstNum === 0) { // if already firstNum, get secondNum instead and calculate the result
+        calculation.secondNum = Number(currentValue);
+        currentValue = '';
+        // get result;
+        let result = calculation.operate();
+        displayedValue.textContent = result;
+        calculation.firstNum = result;
+        calculation.secondNum = null;
+
+        calculation.operator = operators[e.target.id];
+        displayedValue.textContent += operators[e.target.id];
+      }
     }
   });
 });
+
