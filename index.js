@@ -1,17 +1,16 @@
-function add(a, b) {
-  return a + b;
-}
-
-function subtract(a, b) {
-  return a - b;
-}
-
-function multiply(a, b) {
-  return a * b;
-}
-
-function divide(a, b) {
-  return a / b;
+const operations = {
+  add(a, b) {
+    return a + b;
+  },
+  subtract(a, b) {
+    return a - b;
+  },
+  multiply(a, b) {
+    return a * b;
+  },
+  divide(a, b) {
+    return a / b;
+  }
 }
 
 const calculation = {
@@ -21,13 +20,13 @@ const calculation = {
   operate() {
     switch (this.operator) {
       case '+':
-        return add(this.firstNum, this.secondNum);
+        return operations.add(this.firstNum, this.secondNum);
       case '-':
-        return subtract(this.firstNum, this.secondNum);
+        return operations.subtract(this.firstNum, this.secondNum);
       case '*':
-        return multiply(this.firstNum, this.secondNum);
+        return operations.multiply(this.firstNum, this.secondNum);
       case '/':
-        return divide(this.firstNum, this.secondNum);
+        return operations.divide(this.firstNum, this.secondNum);
     }
   }
 }
