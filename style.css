@@ -25,7 +25,7 @@ body {
   position: relative;
 }
 
-.output {
+.value {
   padding: inherit;
   position: absolute;
   font-size: 6em;
