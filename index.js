@@ -42,6 +42,7 @@ const displayedValue = document.querySelector('.display .value');
 const numberBtns = document.querySelectorAll('.number');
 const operatorBtns = document.querySelectorAll('.operator');
 
+// Input numbers
 let currentValue = '';
 numberBtns.forEach(number => {
   number.addEventListener('click', (e) => {
@@ -50,8 +51,11 @@ numberBtns.forEach(number => {
   });
 });
 
+// Input operators
 operatorBtns.forEach(operator => {
   operator.addEventListener('click', (e) => {
-    displayedValue.textContent += operators[e.target.id];
+    if (currentValue) {
+      displayedValue.textContent += operators[e.target.id];
+    }
   });
 });
