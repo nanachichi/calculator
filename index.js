@@ -13,6 +13,13 @@ const operations = {
   }
 };
 
+const operators = {
+  add: '+',
+  subtract: '-',
+  multiply: '*',
+  divide: '/'
+};
+
 const calculation = {
   firstNum: null,
   secondNum: null,
@@ -31,9 +38,13 @@ const calculation = {
   }
 };
 
-const operators = {
-  add: '+',
-  subtract: '-',
-  multiply: '*',
-  divide: '/'
-};
+const displayedValue = document.querySelector('.display .value');
+const numbers = document.querySelectorAll('.number');
+
+let currentValue = '';
+numbers.forEach(number => {
+  number.addEventListener('click', (e) => {
+    displayedValue.textContent += e.target.textContent;
+    currentValue += e.target.textContent;
+  });
+});
