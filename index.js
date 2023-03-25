@@ -39,12 +39,19 @@ const calculation = {
 };
 
 const displayedValue = document.querySelector('.display .value');
-const numbers = document.querySelectorAll('.number');
+const numberBtns = document.querySelectorAll('.number');
+const operatorBtns = document.querySelectorAll('.operator');
 
 let currentValue = '';
-numbers.forEach(number => {
+numberBtns.forEach(number => {
   number.addEventListener('click', (e) => {
     displayedValue.textContent += e.target.textContent;
     currentValue += e.target.textContent;
+  });
+});
+
+operatorBtns.forEach(operator => {
+  operator.addEventListener('click', (e) => {
+    displayedValue.textContent += operators[e.target.id];
   });
 });
