@@ -40,7 +40,7 @@ const calculation = {
 };
 
 
-function getResult() { // retrieves and shows calculated result
+function calculateResult() { // calculates and shows calculated result
   let result = calculation.operate();
   displayedValue.textContent = result;
   calculation.firstNum = null;
@@ -60,45 +60,59 @@ const numberBtns = document.querySelectorAll('.number');
 const operatorBtns = document.querySelectorAll('.operator');
 const equalBtn = document.querySelector('.equal');
 
-// Input numbers
-let currentValue = '';
-numberBtns.forEach(number => {
-  number.addEventListener('click', (e) => {
-    displayedValue.textContent += e.target.textContent;
-    currentValue += e.target.textContent;
-  });
-});
 
-// Input operators
-operatorBtns.forEach(operator => {
-  operator.addEventListener('click', (e) => {
-    // Choose an operator
-    if (currentValue) {
-      // get firstNum / secondNum, and operator;
-      if (!calculation.firstNum && calculation.firstNum !== 0) {
-        calculation.firstNum = Number(currentValue);
-        currentValue = '';
-        getOperator(e);      
-      } else if ((calculation.firstNum || calculation.firstNum === 0)) {
-        calculation.secondNum = Number(currentValue);
-        currentValue = '';
-        let result = getResult();
-        calculation.firstNum = Number(result);
+let currentValue = '';
+
+function inputNumbers() {
+  numberBtns.forEach(number => {
+    number.addEventListener('click', (e) => {
+      displayedValue.textContent += e.target.textContent;
+      currentValue += e.target.textContent;
+    });
+  });
+}
+
+inputNumbers();
+
+
+function inputOperators() {
+  operatorBtns.forEach(operator => {
+    operator.addEventListener('click', (e) => {
+      // Choose an operator
+      if (currentValue) {
+        // get firstNum / secondNum, and operator;
+        if (!calculation.firstNum && calculation.firstNum !== 0) {
+          calculation.firstNum = Number(currentValue);
+          currentValue = '';
+          getOperator(e);      
+        } else if ((calculation.firstNum || calculation.firstNum === 0)) {
+          calculation.secondNum = Number(currentValue);
+          currentValue = '';
+          let result = calculateResult();
+          calculation.firstNum = Number(result);
+          getOperator(e);
+        }
+      // Choose another operator if already have chosen one
+      } else if (!currentValue && displayedValue.textContent) {
+        displayedValue.textContent = displayedValue.textContent.slice(0, -1);
         getOperator(e);
       }
-    // Choose another operator if already have chosen one
-    } else if (!currentValue) {
-      displayedValue.textContent = displayedValue.textContent.slice(0, -1);
-      getOperator(e);
+    });
+  });
+}
+
+inputOperators();
+
+
+function inputResult() {
+  equalBtn.addEventListener('click', (e) => {
+    if ((calculation.firstNum || calculation.firstNum === 0) && currentValue && calculation.operator) {
+      calculation.secondNum = Number(currentValue);
+      let result = calculateResult();
+      currentValue = result;
+      calculation.operator = null;
     }
   });
-});
+}
 
-equalBtn.addEventListener('click', (e) => {
-  if ((calculation.firstNum || calculation.firstNum === 0) && currentValue && calculation.operator) {
-    calculation.secondNum = Number(currentValue);
-    let result = getResult();
-    currentValue = result;
-    calculation.operator = null;
-  }
-});
+inputResult();
