@@ -66,8 +66,14 @@ let currentValue = '';
 function inputNumbers() {
   numberBtns.forEach(number => {
     number.addEventListener('click', (e) => {
-      displayedValue.textContent += e.target.textContent;
-      currentValue += e.target.textContent;
+      if (resulted) {
+        displayedValue.textContent = e.target.textContent;
+        currentValue = e.target.textContent;
+        resulted = false;
+      } else {
+        displayedValue.textContent += e.target.textContent;
+        currentValue += e.target.textContent;
+      }
     });
   });
 }
@@ -104,15 +110,17 @@ function inputOperators() {
 inputOperators();
 
 
-function inputResult() {
+let resulted = false;
+
+function outputResult() {
   equalBtn.addEventListener('click', (e) => {
     if ((calculation.firstNum || calculation.firstNum === 0) && currentValue && calculation.operator) {
       calculation.secondNum = Number(currentValue);
-      let result = calculateResult();
-      currentValue = result;
+      calculateResult();
+      resulted = true;
       calculation.operator = null;
     }
   });
 }
 
-inputResult();
+outputResult();
