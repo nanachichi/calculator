@@ -27,13 +27,13 @@ const calculation = {
   operate() {
     switch (this.operator) {
       case '+':
-        return operations.add(this.firstNum, this.secondNum);
+        return operations.add(Number(this.firstNum), Number(this.secondNum));
       case '-':
-        return operations.subtract(this.firstNum, this.secondNum);
+        return operations.subtract(Number(this.firstNum), Number(this.secondNum));
       case '*':
-        return operations.multiply(this.firstNum, this.secondNum);
+        return operations.multiply(Number(this.firstNum), Number(this.secondNum));
       case '/':
-        let result = operations.divide(this.firstNum, this.secondNum);
+        let result = operations.divide(Number(this.firstNum), Number(this.secondNum));
         return result === Infinity || result === -Infinity ? 'nope' : result; // can't divide by zero
     }
   }
@@ -41,7 +41,10 @@ const calculation = {
 
 
 function calculateResult() { // calculates and shows calculated result
-  let result = calculation.operate();
+  let result = calculation.operate().toString();
+  if (result.includes('.')) {
+    point = true;
+  }
   displayedValue.textContent = result;
   calculation.firstNum = null;
   calculation.secondNum = null;
@@ -52,6 +55,7 @@ function calculateResult() { // calculates and shows calculated result
 function getOperator(e) {
   calculation.operator = operators[e.target.id];
   displayedValue.textContent += operators[e.target.id];
+  point = false;
 }
 
 
@@ -59,6 +63,7 @@ const displayedValue = document.querySelector('.display .value');
 const numberBtns = document.querySelectorAll('.number');
 const operatorBtns = document.querySelectorAll('.operator');
 const equalBtn = document.querySelector('.equal');
+const pointBtn = document.querySelector('.point');
 
 
 let currentValue = '';
@@ -67,12 +72,23 @@ function inputNumbers() {
   numberBtns.forEach(number => {
     number.addEventListener('click', (e) => {
       if (resulted) {
-        displayedValue.textContent = e.target.textContent;
-        currentValue = e.target.textContent;
-        resulted = false;
+        if (currentValue === '0') {
+          displayedValue.textContent = e.target.textContent;
+          currentValue = e.target.textContent;
+        } else {
+          displayedValue.textContent = e.target.textContent;
+          currentValue = e.target.textContent;
+          resulted = false;
+          point = false;
+        }
       } else {
-        displayedValue.textContent += e.target.textContent;
-        currentValue += e.target.textContent;
+        if (currentValue === '0') {
+          displayedValue.textContent = e.target.textContent;
+          currentValue = e.target.textContent;
+        } else {
+          displayedValue.textContent += e.target.textContent;
+          currentValue += e.target.textContent;
+        }
       }
     });
   });
@@ -87,15 +103,16 @@ function inputOperators() {
       // Choose an operator
       if (currentValue) {
         // get firstNum / secondNum, and operator;
-        if (!calculation.firstNum && calculation.firstNum !== 0) {
-          calculation.firstNum = Number(currentValue);
+        if (!calculation.firstNum) {
+          calculation.firstNum = currentValue;
           currentValue = '';
+          resulted = false;
           getOperator(e);      
-        } else if ((calculation.firstNum || calculation.firstNum === 0)) {
-          calculation.secondNum = Number(currentValue);
+        } else {
+          calculation.secondNum = currentValue;
           currentValue = '';
           let result = calculateResult();
-          calculation.firstNum = Number(result);
+          calculation.firstNum = result;
           getOperator(e);
         }
       // Choose another operator if already have chosen one
@@ -114,13 +131,36 @@ let resulted = false;
 
 function outputResult() {
   equalBtn.addEventListener('click', (e) => {
-    if ((calculation.firstNum || calculation.firstNum === 0) && currentValue && calculation.operator) {
-      calculation.secondNum = Number(currentValue);
-      calculateResult();
+    if (calculation.firstNum && currentValue && calculation.operator) {
+      calculation.secondNum = currentValue;
+      let result = calculateResult();
       resulted = true;
+      currentValue = result;
       calculation.operator = null;
     }
   });
 }
 
 outputResult();
+
+
+let point = false;
+
+function inputPoint() {
+  pointBtn.addEventListener('click', (e) => {
+    if (!point) {
+      if (!currentValue) {
+        displayedValue.textContent += 0 + e.target.textContent;
+        currentValue += 0 + e.target.textContent;
+        point = true;
+      } else {
+        displayedValue.textContent += e.target.textContent;
+        currentValue += e.target.textContent;
+        point = true;
+        resulted = false;
+      }
+    }
+  });
+}
+
+inputPoint();
