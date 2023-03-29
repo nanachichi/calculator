@@ -186,7 +186,7 @@ clearEverything();
 function multiplyByMinusOne() {
   plusMinusBtn.addEventListener('click', (e) => {
     if (currentValue && currentValue !== '0' && !calculation.firstNum) {
-      currentValue.toString() *= -1;
+      currentValue *= -1;
       currentValue = currentValue.toString();
       displayedValue.textContent = currentValue;
     }
