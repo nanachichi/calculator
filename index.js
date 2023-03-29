@@ -218,6 +218,7 @@ function deleteChar() {
     if (currentValue) {
       currentValue = currentValue.slice(0, -1);
       displayedValue.textContent = displayedValue.textContent.slice(0, -1);
+      resulted = false;
     } else if (!currentValue && calculation.firstNum) {
       currentValue = calculation.firstNum;
       calculation.firstNum = null;
