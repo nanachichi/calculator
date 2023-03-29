@@ -171,7 +171,6 @@ inputPoint();
 
 function clearEverything() {
   clearBtn.addEventListener('click', (e) => {
-    console.log('triggered');
     displayedValue.textContent = '';
     currentValue = '';
     calculation.firstNum = null;
@@ -200,12 +199,13 @@ multiplyByMinusOne();
 function calculatePercentage() {
   percentageBtn.addEventListener('click', (e) => {
     if (currentValue && currentValue !== '0') {
+      displayedValue.textContent = displayedValue.textContent.slice(0, -currentValue.length);
       currentValue /= 100;
       currentValue = currentValue.toString();
       if (currentValue.includes('.')) {
         point = true;
       }
-      displayedValue.textContent = currentValue;
+      displayedValue.textContent += currentValue;
     }
   });
 }
