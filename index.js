@@ -67,6 +67,7 @@ const pointBtn = document.querySelector('.point');
 const clearBtn = document.querySelector('.clear');
 const plusMinusBtn = document.querySelector('.plus-minus');
 const percentageBtn = document.querySelector('.percentage');
+const deleteBtn = document.querySelector('.delete');
 
 let currentValue = '';
 
@@ -210,3 +211,20 @@ function calculatePercentage() {
 }
 
 calculatePercentage();
+
+
+function deleteChar() {
+  deleteBtn.addEventListener('click', (e) => {
+    if (currentValue) {
+      currentValue = currentValue.slice(0, -1);
+      displayedValue.textContent = displayedValue.textContent.slice(0, -1);
+    } else if (!currentValue && calculation.firstNum) {
+      currentValue = calculation.firstNum;
+      calculation.firstNum = null;
+      calculation.operator = null;
+      displayedValue.textContent = displayedValue.textContent.slice(0, -1);
+    }
+  });
+}
+
+deleteChar();
