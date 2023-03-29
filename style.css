@@ -12,8 +12,8 @@ body {
   flex-direction: column;
   justify-content: space-between;
   padding: 1em;
-  height: 600px;
-  width: 400px;
+  height: 500px;
+  width: 350px;
   border: solid 1px black;
 }
 
@@ -39,7 +39,7 @@ body {
 }
 
 button {
-  min-width: 100px;
+  min-width: 75px;
   min-height: 75px;
   flex: 1;
 }
