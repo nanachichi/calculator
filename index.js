@@ -64,7 +64,7 @@ const numberBtns = document.querySelectorAll('.number');
 const operatorBtns = document.querySelectorAll('.operator');
 const equalBtn = document.querySelector('.equal');
 const pointBtn = document.querySelector('.point');
-
+const clearBtn = document.querySelector('.clear');
 
 let currentValue = '';
 
@@ -164,3 +164,18 @@ function inputPoint() {
 }
 
 inputPoint();
+
+
+function clearEverything() {
+  clearBtn.addEventListener('click', (e) => {
+    console.log('triggered');
+    displayedValue.textContent = '';
+    currentValue = '';
+    calculation.firstNum = null;
+    calculation.operator = null;
+    point = false;
+    resulted = false;
+  });
+}
+
+clearEverything();
