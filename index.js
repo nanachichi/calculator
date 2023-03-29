@@ -66,6 +66,7 @@ const equalBtn = document.querySelector('.equal');
 const pointBtn = document.querySelector('.point');
 const clearBtn = document.querySelector('.clear');
 const plusMinusBtn = document.querySelector('.plus-minus');
+const percentageBtn = document.querySelector('.percentage');
 
 let currentValue = '';
 
@@ -83,7 +84,7 @@ function inputNumbers() {
           point = false;
         }
       } else {
-        if (currentValue === '0') {
+        if (currentValue === '0' && !calculation.firstNum) {
           displayedValue.textContent = e.target.textContent;
           currentValue = e.target.textContent;
         } else {
@@ -185,11 +186,27 @@ clearEverything();
 function multiplyByMinusOne() {
   plusMinusBtn.addEventListener('click', (e) => {
     if (currentValue && currentValue !== '0' && !calculation.firstNum) {
-      currentValue *= -1;
-      currentValue.toString();
+      currentValue.toString() *= -1;
+      currentValue = currentValue.toString();
       displayedValue.textContent = currentValue;
     }
   });
 }
 
 multiplyByMinusOne();
+
+
+function calculatePercentage() {
+  percentageBtn.addEventListener('click', (e) => {
+    if (currentValue && currentValue !== '0') {
+      currentValue /= 100;
+      currentValue = currentValue.toString();
+      if (currentValue.includes('.')) {
+        point = true;
+      }
+      displayedValue.textContent = currentValue;
+    }
+  });
+}
+
+calculatePercentage();
