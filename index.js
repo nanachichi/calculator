@@ -65,6 +65,7 @@ const operatorBtns = document.querySelectorAll('.operator');
 const equalBtn = document.querySelector('.equal');
 const pointBtn = document.querySelector('.point');
 const clearBtn = document.querySelector('.clear');
+const plusMinusBtn = document.querySelector('.plus-minus');
 
 let currentValue = '';
 
@@ -179,3 +180,16 @@ function clearEverything() {
 }
 
 clearEverything();
+
+
+function multiplyByMinusOne() {
+  plusMinusBtn.addEventListener('click', (e) => {
+    if (currentValue && currentValue !== '0' && !calculation.firstNum) {
+      currentValue *= -1;
+      currentValue.toString();
+      displayedValue.textContent = currentValue;
+    }
+  });
+}
+
+multiplyByMinusOne();
