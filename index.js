@@ -75,7 +75,7 @@ function getOperator(e) {
 }
 
 
-function inputNumbers(e) {
+function inputNumber(e) {
   if (resulted) {
     if (currentValue === '0') {
       displayedValue.textContent = e.key || e.target.textContent;
@@ -198,7 +198,7 @@ document.addEventListener('keydown', (e) => {
       e.key === "4" || e.key === "5" || e.key === "6" || 
       e.key === "7" || e.key === "8" || e.key === "9" ||
       e.key === "0") {
-    inputNumbers(e);
+    inputNumber(e);
   } else if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
     if (e.key === "/") {
       e.preventDefault();
@@ -223,7 +223,7 @@ document.addEventListener('keydown', (e) => {
 // Clicking
 numberBtns.forEach(number => {
   number.addEventListener('click', (e) => {
-    inputNumbers(e);
+    inputNumber(e);
   });
 });
 
