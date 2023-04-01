@@ -54,7 +54,7 @@ function calculateResult() { // calculates and shows calculated result
 
 function getOperator(e) {
   calculation.operator = operators[e.target.id];
-  displayedValue.textContent += operators[e.target.id];
+  displayedValue.textContent += e.target.textContent;
   point = false;
 }
 
