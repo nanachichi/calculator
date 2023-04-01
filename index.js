@@ -69,6 +69,30 @@ function calculatePercentage() {
 
 
 function getOperator(e) {
+  // Choose an operator
+  if (currentValue) {
+    // get firstNum / secondNum, and operator;
+    if (!calculation.firstNum) {
+      calculation.firstNum = currentValue;
+      currentValue = '';
+      resulted = false;
+      inputOperator(e);      
+    } else {
+      calculation.secondNum = currentValue;
+      currentValue = '';
+      let result = calculateResult();
+      calculation.firstNum = result;
+      inputOperator(e);
+    }
+  // Choose another operator if already have chosen one
+  } else if (!currentValue && displayedValue.textContent) {
+    displayedValue.textContent = displayedValue.textContent.slice(0, -1);
+    inputOperator(e);
+  }
+}
+
+
+function inputOperator(e) {
   calculation.operator = e.key || operators[e.target.id];
   displayedValue.textContent += e.key || e.target.textContent;
   point = false;
@@ -94,30 +118,6 @@ function inputNumber(e) {
       displayedValue.textContent += e.key || e.target.textContent;
       currentValue += e.key || e.target.textContent;
     }
-  }
-}
-
-
-function inputOperators(e) {
-  // Choose an operator
-  if (currentValue) {
-    // get firstNum / secondNum, and operator;
-    if (!calculation.firstNum) {
-      calculation.firstNum = currentValue;
-      currentValue = '';
-      resulted = false;
-      getOperator(e);      
-    } else {
-      calculation.secondNum = currentValue;
-      currentValue = '';
-      let result = calculateResult();
-      calculation.firstNum = result;
-      getOperator(e);
-    }
-  // Choose another operator if already have chosen one
-  } else if (!currentValue && displayedValue.textContent) {
-    displayedValue.textContent = displayedValue.textContent.slice(0, -1);
-    getOperator(e);
   }
 }
 
@@ -203,7 +203,7 @@ document.addEventListener('keydown', (e) => {
     if (e.key === "/") {
       e.preventDefault();
     }
-    inputOperators(e);
+    getOperator(e);
   } else if (e.key === "=" || e.key === "Enter") {
     outputResult();
   } else if (e.key === "%") {
@@ -229,7 +229,7 @@ numberBtns.forEach(number => {
 
 operatorBtns.forEach(operator => {
   operator.addEventListener('click', (e) => {
-    inputOperators(e);
+    getOperator(e);
   });
 });
 
