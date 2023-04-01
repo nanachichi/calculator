@@ -83,16 +83,20 @@ button {
 
 button:hover {
   background-color: #36a4cf;
+  transform: scale(1.05);
 }
 
 .top:hover {
   background-color: #4c5dbe;
+  transform: scale(1.05);
 }
 
 .operator:hover {
   background-color: #70aa46;
+  transform: scale(1.05);
 }
 
 .equal:hover {
   background-color: #f54021;
+  transform: scale(1.05);
 }
