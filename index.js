@@ -56,7 +56,7 @@ function calculateResult() { // calculates and shows calculated result
 
 
 function calculatePercentage() {
-  if (currentValue && currentValue !== '0') {
+  if (currentValue && currentValue !== '0' && currentValue !== '0.') {
     displayedValue.textContent = displayedValue.textContent.slice(0, -currentValue.length);
     currentValue /= 100;
     currentValue = currentValue.toString();
