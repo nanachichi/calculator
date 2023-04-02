@@ -170,6 +170,9 @@ function clearEverything() {
 
 function deleteChar() {
   if (currentValue) {
+    if (currentValue[currentValue.length - 1] === '.') {
+      point = false;
+    }
     currentValue = currentValue.slice(0, -1);
     displayedValue.textContent = displayedValue.textContent.slice(0, -1);
     resulted = false;
