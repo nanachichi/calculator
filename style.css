@@ -29,6 +29,7 @@ body {
   border: solid 2px #fff;
   border-radius: 6px;
   flex: 1;
+  white-space: nowrap;
   padding: 0 8px;
   margin-bottom: 1em;
   position: relative;
