@@ -216,11 +216,6 @@ calculatePercentage();
 function deleteChar() {
   deleteBtn.addEventListener('click', (e) => {
     if (currentValue) {
-      if (currentValue.includes('.')) { // point = false if '.' is deleted
-        if (currentValue.includes('.') !== currentValue.slice(0, -1).includes('.')) {
-          point = false;
-        }
-      }
       currentValue = currentValue.slice(0, -1);
       displayedValue.textContent = displayedValue.textContent.slice(0, -1);
       resulted = false;
