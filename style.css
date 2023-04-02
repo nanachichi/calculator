@@ -18,7 +18,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   padding: 1em;
-  height: 500px;
+  height: 525px;
   width: 350px;
   background-color: #152036;
   border: solid 2px black;
@@ -59,7 +59,7 @@ button {
   font-size: 30px;
   color: #fff;
   background-color: #3094bb;
-  border: solid 2px #fff;
+  border: none;
   border-radius: 6px;
   margin: 1px;
   min-width: 75px;
@@ -83,20 +83,32 @@ button {
 
 button:hover {
   background-color: #36a4cf;
-  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.97);
 }
 
 .top:hover {
   background-color: #4c5dbe;
-  transform: scale(1.05);
+}
+
+.top:active {
+  transform: scale(0.97);
 }
 
 .operator:hover {
   background-color: #70aa46;
-  transform: scale(1.05);
+}
+
+.operator:active {
+  transform: scale(0.97);
 }
 
 .equal:hover {
   background-color: #f54021;
-  transform: scale(1.05);
+}
+
+.equal:active {
+  transform: scale(0.97);
 }
